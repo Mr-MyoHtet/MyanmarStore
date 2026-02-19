@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap');
 
 :root {
-    --primary-color: #5B21B6;
+    --primary-color: --bg-light;
     --hover-color: #4C1D95;
     --bg-light: #f7fafc;
     --text-dark: #2d3748;
@@ -207,7 +207,7 @@ body {
     --tw-bg-opacity: 1;
     background-color: rgb(245 243 255 / var(--tw-bg-opacity, 1));
     --tw-text-opacity: 1;
-    color: rgb(91 33 182 / var(--tw-text-opacity, 1));
+    color: black;
     font-weight: 500;
     font-size: 0.875rem;
     line-height: 1.25rem;
@@ -240,4 +240,16 @@ body {
     font-weight: var(--font-weight-bold);
     font-size: var(--font-size-lg);
     color: var(--primary-color);
+}
+
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme{
+    --color-normalbg:#f3f4f6;
+    --color-darkbg:#1e2939;
 }

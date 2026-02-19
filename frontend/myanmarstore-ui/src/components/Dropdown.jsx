@@ -2,9 +2,9 @@ import React from 'react'
 
 const Dropdown = ({label,options,selectedValue,handleSort}) => {
   return (
-    <div className="flex items-center gap-2 justify-end pr-12 flex-1 font-primary">
+    <div className="flex items-center gap-2 justify-end pr-12 flex-1 font-primary dark:text-normalbg">
         <label className="text-lg font-semibold text-primary">{label}</label>
-        <select className="px-3 py-2 text-base border rounded-md transition border-primary focus:ring focus:ring-dark focus:outline-none text-gray-900"
+        <select className="px-3 py-2 text-base border rounded-md transition border-primary focus:ring focus:ring-dark focus:outline-none text-gray-900 dark:text-normalbg"
         value={selectedValue}
         onChange={(event)=>handleSort(event.target.value)}
         >
