@@ -40,7 +40,7 @@ const Header =() => {
                     </button>
                     <ul>
                         <li>
-                            <a href="/" className="nav-link">Home</a>
+                            <a href="/home" className="nav-link">Home</a>
                         </li>
                          <li>
                             <a href="/about" className="nav-link">About</a>
