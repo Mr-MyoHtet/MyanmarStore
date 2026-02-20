@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBowlRice, faShoppingBasket,faTags,faSun,faMoon} from "@fortawesome/free-solid-svg-icons";
 import { faBowlFood } from "@fortawesome/free-solid-svg-icons/faBowlFood";
 import { useState,useEffect } from "react";
+import { Link,NavLink } from "react-router-dom";
 const Header =() => {
 
     //Theme Color
@@ -27,10 +28,10 @@ const Header =() => {
     return(
         <header className="header dark:bg-darkbg dark:text-normalbg">
             <div  className="container">
-                <a href="/" className="link">
+                <Link to="/" className="link">
                 <FontAwesomeIcon icon={faBowlRice} className="fa-icon"/>
                 <span>Myanmar Food </span>
-                </a>
+                </Link>
                 <nav className="nav">
                     <button
                     className="flex items-center justify-center mx-3 w-8 h-8 rounded-full border border-primary dark:border-light transition duration-300 hover:bg-gray-300 dark:hover:bg-gray-600"
@@ -40,21 +41,21 @@ const Header =() => {
                     </button>
                     <ul>
                         <li>
-                            <a href="/home" className="nav-link">Home</a>
+                            <NavLink to="/home" className={({isActive})=> isActive ? "underline":"nav-link"}>Home</NavLink>
                         </li>
                          <li>
-                            <a href="/about" className="nav-link">About</a>
+                            <NavLink to="/about" className={({isActive})=> isActive ? "underline":"nav-link"}>About</NavLink>
                         </li>
                          <li>
-                            <a href="/contact" className="nav-link">Contact</a>
+                            <NavLink to="/contact" className={({isActive})=> isActive ? "underline":"nav-link"}>Contact</NavLink>
                         </li>
                          <li>
-                            <a href="/login" className="nav-link">Login</a>
+                            <NavLink to="/login" cclassName={({isActive})=> isActive ? "underline":"nav-link"}>Login</NavLink>
                         </li>
                         <li>
-                            <a href="/cart" className="nav-link">
+                            <NavLink to="/cart" className="nav-link">
                             <FontAwesomeIcon  icon={faShoppingBasket} />
-                            </a>
+                            </NavLink>
                         </li>
                     </ul>
                 </nav>
