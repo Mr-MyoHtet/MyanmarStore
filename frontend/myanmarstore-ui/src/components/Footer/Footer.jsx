@@ -7,7 +7,7 @@ const Footer =() => {
             Built with 
             <FontAwesomeIcon icon={faHeart} className="footer-icon" aria-hidden="true"/>
             by
-            <a href="https://eazybytes.com" target="_blank" rel="noreferrer">myo</a>
+            <a href="https://eazybytes.com" target="_blank" rel="noreferrer"> ***MYO***</a>
         </footer>
     );
 }
