@@ -1,8 +1,20 @@
 import React from 'react'
 import PageTitle from './PageTitle';
 import { Form } from 'react-router-dom';
+import apiClient from "../api/apiClient"
+import { useActionData,useNavigation } from 'react-router-dom';
+import { useEffect,useRef } from 'react';
 
 const Contact = () => {
+  const actionData = useActionData();
+  const fromRef =useRef(null);
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
+  useEffect(()=>{
+    if(actionData?.success){
+      fromRef.current?.reset();
+    }
+  },[actionData]);
   return (
     <div className="max-w-[1152px] mx-auto">
       {/* Page Title */}
@@ -18,7 +30,7 @@ const Contact = () => {
 
       {/* Contact Form */}
       <div className="max-w-2xl mx-auto">
-        <form className="space-y-6">
+        <Form ref={fromRef} method="POST" className="space-y-6">
           {/* Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-normalbg">
@@ -26,6 +38,7 @@ const Contact = () => {
             </label>
             <input
               type="text"
+              name="name"
               placeholder="Your Name"
             className="w-full bg-white text-gray-800 placeholder-gray-400 
            border border-gray-300 rounded-md px-4 py-3 
@@ -39,6 +52,7 @@ const Contact = () => {
             </label>
             <input
               type="email"
+              name="email"
               placeholder="Your Email"
               className="w-full bg-white text-gray-800 placeholder-gray-400 
            border border-gray-300 rounded-md px-4 py-3 
@@ -52,6 +66,7 @@ const Contact = () => {
             </label>
             <input
               type="tel"
+              name="mobileNumber"
               placeholder="Your Mobile Number"
               className="w-full bg-white text-gray-800 placeholder-gray-400 
            border border-gray-300 rounded-md px-4 py-3 
@@ -65,6 +80,7 @@ const Contact = () => {
             </label>
             <textarea
             rows="5"
+            name="message"
             placeholder="Your Message"
           className="w-full bg-white text-gray-800 placeholder-gray-400 
            border border-gray-300 rounded-md px-4 py-3 
@@ -75,15 +91,34 @@ const Contact = () => {
           <div className="pt-4">
             <button
               type="submit"
+              disabled={isSubmitting}
               className="w-full bg-indigo-600 text-white font-medium py-3 rounded-md hover:bg-indigo-700 transition duration-200"
             >
-              Submit
-            </button>
+              {isSubmitting?"Submitting": "Submit"}            </button>
           </div>
-        </form>
+        </Form>
       </div>
     </div>
   );
 }
 
 export default Contact
+
+export async function saveContact({request,params}){
+  const data = await request.formData();
+  const contactData = {
+    name:data.get("name"),
+    email:data.get("email"),
+    mobileNumber:data.get("mobileNumber"),
+    message:data.get("message")
+  };
+  try{
+    await apiClient.post("/contacts",contactData);
+    return {success:"true"};
+  } catch(error){
+    throw new Response(
+      error.message || "failed to submit your message. Please try again",
+      {status:error.status || 500}
+    )
+  }
+}

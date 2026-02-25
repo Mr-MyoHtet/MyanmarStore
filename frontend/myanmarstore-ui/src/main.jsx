@@ -11,13 +11,15 @@ import Contact from './components/Contact.jsx'
 import Home from './components/Home.jsx'
 import ErrorPage from './components/Errorpage.jsx'
 import { productLoader } from './components/Home.jsx'
+import {saveContact} from './components/Contact'
+
 
 const routeDefinitions = createRoutesFromElements(
 <Route path="/" element={<App/>} errorElement={<ErrorPage/>}>
   <Route index element={<Home/>} loader={productLoader} />
   <Route path="/home" element={<Home/>} loader={productLoader} />
   <Route path="/about" element={<About/>} />
-  <Route path="/contact" element={<Contact/>} />
+  <Route path="/contact" element={<Contact/>} action={saveContact} />
   <Route path="/login" element={<Login/>} />
   <Route path="/cart" element={<Cart/>} />
   </Route>
