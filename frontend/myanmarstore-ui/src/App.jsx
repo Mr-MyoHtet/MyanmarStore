@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 
 function App() {
   const navigation = useNavigation();
-console.log(navigation.state);
   return (
     <>
     <Header />
