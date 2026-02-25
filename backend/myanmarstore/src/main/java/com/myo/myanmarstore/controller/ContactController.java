@@ -21,7 +21,7 @@ public class ContactController {
 
     @PostMapping
     public String saveContact(@RequestBody ContactRequestDto contactRequestDto) throws InterruptedException {
-        Thread.sleep(3000);
+        // Thread.sleep(3000);
         boolean isSaved = contactService.saveContact(contactRequestDto);
         if (isSaved) {
             return "Request processed successfully";

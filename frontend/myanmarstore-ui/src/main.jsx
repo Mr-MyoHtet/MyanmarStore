@@ -10,6 +10,8 @@ import Cart from './components/Cart.jsx'
 import Contact from './components/Contact.jsx'
 import Home from './components/Home.jsx'
 import ErrorPage from './components/Errorpage.jsx'
+import { ToastContainer,Bounce } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css"
 import { productLoader } from './components/Home.jsx'
 import {saveContact} from './components/Contact'
 
@@ -59,5 +61,18 @@ const appRouter=createBrowserRouter(routeDefinitions);
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={appRouter} />
+    <ToastContainer
+      position="top-center"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick={false}
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme={localStorage.getItem("theme")=== "dark"?"dark":"light"}
+      transition={Bounce}
+/>
   </StrictMode>,
 )

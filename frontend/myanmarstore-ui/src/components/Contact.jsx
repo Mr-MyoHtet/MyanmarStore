@@ -4,6 +4,7 @@ import { Form } from 'react-router-dom';
 import apiClient from "../api/apiClient"
 import { useActionData,useNavigation } from 'react-router-dom';
 import { useEffect,useRef } from 'react';
+import { toast } from 'react-toastify';
 
 const Contact = () => {
   const actionData = useActionData();
@@ -13,6 +14,7 @@ const Contact = () => {
   useEffect(()=>{
     if(actionData?.success){
       fromRef.current?.reset();
+      toast.success("Your message has been submitted successfully!!!");
     }
   },[actionData]);
   return (
