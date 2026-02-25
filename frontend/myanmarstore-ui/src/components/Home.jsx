@@ -2,49 +2,52 @@ import PageHeading from "./PageHeading"
 import ProductListings from "./ProductListings"
 import apiClient from "../api/apiClient"
 import { useState,useEffect } from "react"
+import { useLoaderData } from "react-router-dom"
 export default function Home(){
 
-    const [products,setProduct] = useState([]);
-    const [loading,setLoading] = useState([true]);
-    const [error,setError] = useState(null);
+  const products = useLoaderData();
+
+    // const [products,setProduct] = useState([]);
+    // const [loading,setLoading] = useState([true]);
+    // const [error,setError] = useState(null);
 
     //  // Run once when the component mounts
   // Mounting is the process of creating and adding the component into DOM
-    useEffect(()=>{
-        fetchProduct()
-    },[]);
+    // useEffect(()=>{
+    //     fetchProduct()
+    // },[]);
 
-    const fetchProduct = async() => {
-        try{
-            setLoading(true);
-            const response = await apiClient.get("/products");
-            setProduct(response.data);
-        }catch(error){
-             setError(
-                error.response?.data?.message ||
-                "Failed to fetch products. Please try again."
-      );
-        }
-        finally{
-             setLoading(false);
-        }
-    }
+    // const fetchProduct = async() => {
+      //   try{
+      //       setLoading(true);
+      //       const response = await apiClient.get("/products");
+      //       setProduct(response.data);
+      //   }catch(error){
+      //        setError(
+      //           error.response?.data?.message ||
+      //           "Failed to fetch products. Please try again."
+      // );
+      //   }
+      //   finally{
+      //        setLoading(false);
+      //   }
+   // }
 
-    if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <span className="text-xl font-semibold">Loading products...</span>
-      </div>
-    );
-  }
+  //   if (loading) {
+  //   return (
+  //     <div className="flex items-center justify-center min-h-screen">
+  //       <span className="text-xl font-semibold">Loading products...</span>
+  //     </div>
+  //   );
+  // }
 
-  if (error) {
-    return (
-      <div className="flex items-center justify-center">
-        <span className="text-xl text-red-500">Error: {error}</span>
-      </div>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <div className="flex items-center justify-center">
+  //       <span className="text-xl text-red-500">Error: {error}</span>
+  //     </div>
+  //   );
+  // }
     return (
 
         <div className="home-container">
@@ -57,5 +60,18 @@ export default function Home(){
         </div>
         
     )
+}
+
+export  async function productLoader(){
+        try{ 
+            const response = await apiClient.get("/products");
+            //setProduct(response.data);
+            return response.data;
+        }catch(error){
+          throw new Response(
+            error.message || "Failed to fetch products.Please try again",
+           {status:error.status|| 500}
+          )
+        }
 }
 
