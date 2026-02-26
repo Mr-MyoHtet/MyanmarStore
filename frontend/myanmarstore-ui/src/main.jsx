@@ -14,7 +14,7 @@ import { ToastContainer,Bounce } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css"
 import { productLoader } from './components/Home.jsx'
 import {saveContact} from './components/Contact'
-
+import ProductDetails from './components/productDetails.jsx'
 
 const routeDefinitions = createRoutesFromElements(
 <Route path="/" element={<App/>} errorElement={<ErrorPage/>}>
@@ -24,6 +24,8 @@ const routeDefinitions = createRoutesFromElements(
   <Route path="/contact" element={<Contact/>} action={saveContact} />
   <Route path="/login" element={<Login/>} />
   <Route path="/cart" element={<Cart/>} />
+  <Route path="/products/:productId" element={<ProductDetails/>} />
+
   </Route>
 );
 const appRouter=createBrowserRouter(routeDefinitions);
