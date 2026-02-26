@@ -2,7 +2,7 @@ import React from 'react'
 import PageTitle from './PageTitle';
 import { Form } from 'react-router-dom';
 import apiClient from "../api/apiClient"
-import { useActionData,useNavigation } from 'react-router-dom';
+import { useActionData,useNavigation,useSubmit } from 'react-router-dom';
 import { useEffect,useRef } from 'react';
 import { toast } from 'react-toastify';
 
@@ -10,6 +10,7 @@ const Contact = () => {
   const actionData = useActionData();
   const fromRef =useRef(null);
   const navigation = useNavigation();
+  const submit = useSubmit();
   const isSubmitting = navigation.state === "submitting";
   useEffect(()=>{
     if(actionData?.success){
@@ -17,6 +18,19 @@ const Contact = () => {
       toast.success("Your message has been submitted successfully!!!");
     }
   },[actionData]);
+
+  const handleSubmit=(event)=>{
+    event.preventDefault();
+    const userConfirmed = window.confirm(
+      "Are you sure to submit this form data"
+    );
+    if(userConfirmed){
+      const formData = new FormData(fromRef.current); //Get the form data
+      submit(formData,{method:"POST"});
+    }else {
+      toast.info("Form Submission Cancelled!!!")
+    }
+  }
   return (
     <div className="max-w-[1152px] mx-auto">
       {/* Page Title */}
@@ -32,7 +46,7 @@ const Contact = () => {
 
       {/* Contact Form */}
       <div className="max-w-2xl mx-auto">
-        <Form ref={fromRef} method="POST" className="space-y-6">
+        <Form ref={fromRef} method="POST" onSubmit={handleSubmit} className="space-y-6">
           {/* Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-normalbg">
